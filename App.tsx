@@ -1,9 +1,13 @@
 /** @format */
 import React, { useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { HomeScreen } from "./src/screens/Home.Screen";
+import { stylesConfig } from "./src/configs/styles-config";
+import { colors } from "./src/theme/colors";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,18 +27,20 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider style={styles.root} onLayout={onLayoutRootView}>
+      <SafeAreaView style={stylesConfig.root}>
+        <StatusBar style="light" />
+        <HomeScreen />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
+// ! Styles
+
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: colors.dark,
   },
 });
