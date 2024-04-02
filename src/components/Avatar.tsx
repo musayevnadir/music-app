@@ -16,7 +16,7 @@ interface IAvatar {
 export const Avatar: React.FC<IAvatar> = ({ title, caption, url }) => {
   return (
     <View style={styles.root}>
-      <Image style={styles.image} source={{ uri: url }} />
+      {url ? <Image style={styles.image} source={{ uri: url }} /> : null}
       <View>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.caption}>{caption}</Text>
