@@ -1,11 +1,11 @@
 /** @format */
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Avatar } from "../components/Avatar";
-import { Header } from "../components/Header";
+import { Avatar } from "components/Avatar";
+import { Header } from "components/Header";
 import Ring from "../../assets/vectors/ring.svg";
-import { colors } from "../theme/colors";
-import { MainSection } from "../components/MainSection";
+import { colors } from "theme/colors";
+import { MainSection } from "components/MainSection";
 
 export const HomeScreen: React.FC = () => {
   const leftOnPress = () => {

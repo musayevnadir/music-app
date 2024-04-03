@@ -1,7 +1,7 @@
 /** @format */
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { colors } from "../theme/colors";
+import { colors } from "theme/colors";
 
 // ! Interface
 

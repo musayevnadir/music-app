@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Input } from "./Input";
 import Search from "../../assets/vectors/search.svg";
-import { colors } from "../theme/colors";
+import { colors } from "theme/colors";
 
 // ! Interface
 
