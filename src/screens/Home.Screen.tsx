@@ -6,8 +6,14 @@ import { Header } from "components/Header";
 import Ring from "../../assets/vectors/ring.svg";
 import { colors } from "theme/colors";
 import { MainSection } from "components/MainSection";
+import { Card, MainCardList } from "components/Card";
+import { recentlyPlayedDates } from "mock/card.dates";
+import { FlashList } from "@shopify/flash-list";
 
 export const HomeScreen: React.FC = () => {
+  const renderMainCard = ({ item }: { item: any }) => {
+    return <Card {...item} />;
+  };
   const leftOnPress = () => {
     console.log("LEFT ON PRESS");
   };
@@ -37,6 +43,17 @@ export const HomeScreen: React.FC = () => {
         text={"Listen The"}
         title={"Latest Musics"}
       />
+      <MainCardList size={22} gapTop={44} mainText={"Recently Played"}>
+        <FlashList
+          data={recentlyPlayedDates}
+          horizontal={true}
+          renderItem={renderMainCard}
+          keyExtractor={(item) => item.id}
+          estimatedItemSize={200}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 30 }}
+        />
+      </MainCardList>
     </View>
   );
 };
@@ -45,6 +62,7 @@ export const HomeScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
     paddingHorizontal: 20,
   },
 

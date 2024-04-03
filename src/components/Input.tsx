@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   isFocused: {
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: colors.gray,
+    borderColor: colors.primary,
   },
 
   input: {
