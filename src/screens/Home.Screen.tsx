@@ -7,12 +7,16 @@ import Ring from "../../assets/vectors/ring.svg";
 import { colors } from "theme/colors";
 import { MainSection } from "components/MainSection";
 import { Card, MainCardList } from "components/Card";
-import { recentlyPlayedDates } from "mock/card.dates";
+import { recentlyPlayedDates, recommendDates } from "mock/card.dates";
 import { FlashList } from "@shopify/flash-list";
 
 export const HomeScreen: React.FC = () => {
-  const renderMainCard = ({ item }: { item: any }) => {
+  const renderRecentlyMusic = ({ item }: { item: any }) => {
     return <Card {...item} />;
+  };
+
+  const renderRecommendMusic = ({ item }: { item: any }) => {
+    return <Card recommend={"recommend"} {...item} />;
   };
   const leftOnPress = () => {
     console.log("LEFT ON PRESS");
@@ -21,6 +25,7 @@ export const HomeScreen: React.FC = () => {
   const rightOnPress = () => {
     console.log("RIGHT ON PRESS");
   };
+
   return (
     <View style={styles.root}>
       <View style={styles.container}>
@@ -36,23 +41,41 @@ export const HomeScreen: React.FC = () => {
           rightOnPress={rightOnPress}
           right={Ring}
           color={colors.gray}
+          colorPrimary={colors.primary}
         />
       </View>
       <MainSection
-        paddingTop={20}
+        style={styles.mainContainer}
         text={"Listen The"}
         title={"Latest Musics"}
       />
-      <MainCardList size={22} gapTop={44} mainText={"Recently Played"}>
+      <MainCardList
+        style={styles.mainCardListRecent}
+        mainText={"Recently Played"}
+      >
         <FlashList
           data={recentlyPlayedDates}
           horizontal={true}
-          renderItem={renderMainCard}
+          renderItem={renderRecentlyMusic}
           keyExtractor={(item) => item.id}
           estimatedItemSize={200}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 30 }}
         />
+      </MainCardList>
+      <MainCardList
+        style={styles.mainCardListRecommend}
+        mainText={"Recommend for you"}
+      >
+        <View style={styles.flatContainer}>
+          <FlashList
+            data={recommendDates}
+            renderItem={renderRecommendMusic}
+            keyExtractor={(item) => item.id}
+            estimatedItemSize={200}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 900 }}
+          />
+        </View>
       </MainCardList>
     </View>
   );
@@ -62,13 +85,31 @@ export const HomeScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
     paddingHorizontal: 20,
+  },
+
+  mainCardListRecent: {
+    paddingTop: 44,
+    fontSize: 22,
+  },
+
+  mainCardListRecommend: {
+    paddingTop: 28,
+    fontSize: 18,
+  },
+
+  flatContainer: {
+    width: "100%",
+    height: "100%",
   },
 
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+
+  mainContainer: {
+    paddingTop: 20,
   },
 });

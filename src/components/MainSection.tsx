@@ -1,6 +1,6 @@
 /** @format */
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { Input } from "./Input";
 import Search from "../../assets/vectors/search.svg";
 import { colors } from "theme/colors";
@@ -10,18 +10,14 @@ import { colors } from "theme/colors";
 interface IMainSection {
   text?: string;
   title?: string;
-  paddingTop?: number;
+  style?: StyleProp<ViewStyle>;
 }
 
 // ! Component
 
-export const MainSection: React.FC<IMainSection> = ({
-  text,
-  title,
-  paddingTop,
-}) => {
+export const MainSection: React.FC<IMainSection> = ({ text, title, style }) => {
   return (
-    <View style={[styles.root, { paddingTop: paddingTop }]}>
+    <View style={[styles.root, style]}>
       <View>
         <Text style={styles.text}>{text}</Text>
         <Text style={styles.text}>{title}</Text>
@@ -35,8 +31,9 @@ export const MainSection: React.FC<IMainSection> = ({
 
 const styles = StyleSheet.create({
   root: {
-    flexDirection: "row",
     gap: 15,
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   text: {

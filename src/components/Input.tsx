@@ -8,18 +8,19 @@ import { colors } from "theme/colors";
 interface IInput {
   placeholder?: string;
   icon?: any;
+  value?: string;
 }
 
 // ! Component
 
-export const Input: React.FC<IInput> = ({ icon, placeholder }) => {
+export const Input: React.FC<IInput> = ({ icon, placeholder, value }) => {
   const [isFocused, setFocused] = useState<boolean>(false);
 
-  const onChangeText = (text: string) => {
-    if (text) {
-      setFocused(true);
-      return;
-    }
+  const onFocus = () => {
+    setFocused(true);
+  };
+
+  const onBlur = () => {
     setFocused(false);
   };
 
@@ -27,7 +28,10 @@ export const Input: React.FC<IInput> = ({ icon, placeholder }) => {
     <View style={[styles.container, isFocused ? styles.isFocused : null]}>
       {!isFocused ? (icon ? React.createElement(icon) : null) : null}
       <TextInput
-        onChangeText={(text) => onChangeText(text)}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        value={value}
+        // onChangeText={(text) => onChangeText(text)}
         placeholderTextColor={colors.gray}
         placeholder={placeholder}
         style={styles.input}
@@ -58,5 +62,6 @@ const styles = StyleSheet.create({
     color: colors.gray,
     fontSize: 14,
     fontFamily: "Nunito-Regular",
+    paddingVertical: 11,
   },
 });

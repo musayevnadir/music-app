@@ -1,6 +1,13 @@
 /** @format */
 import React from "react";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  ViewStyle,
+  StyleProp,
+} from "react-native";
 import { colors } from "theme/colors";
 
 // ! Interface
@@ -10,8 +17,10 @@ interface IHeader {
   right?: any;
   title?: string;
   color?: string;
+  colorPrimary?: string;
   leftOnPress?: () => void;
   rightOnPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 }
 
 // ! Component
