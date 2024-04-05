@@ -3,10 +3,10 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { colors } from "theme/colors";
 
-export const FavoritesScreen: React.FC = () => {
+export const NotificationScreen: React.FC = () => {
   return (
     <View style={styles.root}>
-      <Text style={styles.text}>FavoritesScreen</Text>
+      <Text style={styles.text}>NotificationScreen</Text>
     </View>
   );
 };
@@ -15,7 +15,6 @@ export const FavoritesScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.dark,
@@ -23,6 +22,6 @@ const styles = StyleSheet.create({
 
   text: {
     color: colors.primary,
-    fontSize: 30,
+    fontSize: 50,
   },
 });

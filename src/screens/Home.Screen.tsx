@@ -9,6 +9,9 @@ import { MainSection } from "components/MainSection";
 import { Card, MainCardList } from "components/Card";
 import { recentlyPlayedDates, recommendDates } from "mock/card.dates";
 import { FlashList } from "@shopify/flash-list";
+import { SafeTopContainer } from "containers/SafeTopContainer";
+import { SafeBottomContainer } from "containers/SafeBottomContainer";
+import { SafeMainContainer } from "containers/SafeMainContainer";
 
 export const HomeScreen: React.FC = () => {
   const renderRecentlyMusic = ({ item }: { item: any }) => {
@@ -86,6 +89,7 @@ export const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   root: {
     paddingHorizontal: 20,
+    backgroundColor: colors.dark,
   },
 
   mainCardListRecent: {

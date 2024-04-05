@@ -5,13 +5,14 @@ import { StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { HomeScreen } from "./src/screens/Home.Screen";
 import { stylesConfig } from "./src/configs/styles-config";
 import { colors } from "./src/theme/colors";
+import { gestureHandlerRootHOC } from "react-native-gesture-handler";
+import { Router } from "routers/router";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
+const App: React.FC = () => {
   const [fontsLoaded, fontError] = useFonts({
     "Nunito-Regular": require("./assets/fonts/Nunito-Regular.ttf"),
     "Nunito-SemiBold": require("./assets/fonts/Nunito-SemiBold.ttf"),
@@ -28,13 +29,15 @@ export default function App() {
 
   return (
     <SafeAreaProvider style={styles.root} onLayout={onLayoutRootView}>
-      <SafeAreaView style={stylesConfig.root}>
+      <SafeAreaView edges={["top"]} style={stylesConfig.root}>
         <StatusBar style="light" />
-        <HomeScreen />
+        <Router />
       </SafeAreaView>
     </SafeAreaProvider>
   );
-}
+};
+
+export default gestureHandlerRootHOC(App);
 
 // ! Styles
 
