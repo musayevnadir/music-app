@@ -2,52 +2,37 @@
 
 // ! recentlyPlayedDates
 
-export const recentlyPlayedDates = [
+export const carDate = [
   {
-    id: "0",
-    image: require("../../assets/images/Rectangle 18.png"),
-    title: "The triangle",
-  },
-  {
-    id: "1",
-    image: require("../../assets/images/Rectangle 17.png"),
+    url: "https://img.freepik.com/premium-photo/vibrant-colors-flow-surreal-deep-space-fantasy-generated-by-ai_24911-72530.jpg",
     title: "Dune Of Visa",
+    singer: "Manis",
+    description:
+      "Великая пустыня Сахара, простирающаяся на тысячи километров в Африке, является одним из самых непостижимых и загадочных мест на нашей планете.",
   },
   {
-    id: "3",
-    image: require("../../assets/images/Rectangle 16.png"),
-    title: "Riskitall",
-  },
-  {
-    id: "4",
-    image: require("../../assets/images/Rectangle 18.png"),
-    title: "The triangle",
-  },
-  {
-    id: "5",
-    image: require("../../assets/images/Rectangle 17.png"),
+    url: "https://img.freepik.com/premium-photo/vibrant-colors-flow-surreal-deep-space-fantasy-generated-by-ai_24911-72530.jpg",
     title: "Dune Of Visa",
+    singer: "Manis",
+    description: "114k / steams",
   },
   {
-    id: "6",
-    image: require("../../assets/images/Rectangle 16.png"),
-    title: "Riskital",
-  },
-
-  {
-    id: "7",
-    image: require("../../assets/images/Rectangle 18.png"),
-    title: "The triangle",
-  },
-  {
-    id: "8",
-    image: require("../../assets/images/Rectangle 17.png"),
+    url: "https://img.freepik.com/premium-photo/vibrant-colors-flow-surreal-deep-space-fantasy-generated-by-ai_24911-72530.jpg",
     title: "Dune Of Visa",
+    singer: "Manis",
+    description: "114k / steams",
   },
   {
-    id: "9",
-    image: require("../../assets/images/Rectangle 16.png"),
-    title: "Riskital",
+    url: "https://img.freepik.com/premium-photo/vibrant-colors-flow-surreal-deep-space-fantasy-generated-by-ai_24911-72530.jpg",
+    title: "Dune Of Visa",
+    singer: "Manis",
+    description: "114k / steams",
+  },
+  {
+    url: "https://img.freepik.com/premium-photo/vibrant-colors-flow-surreal-deep-space-fantasy-generated-by-ai_24911-72530.jpg",
+    title: "Dune Of Visa",
+    singer: "Manis",
+    description: "114k / steamsO",
   },
 ];
 

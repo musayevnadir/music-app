@@ -7,6 +7,7 @@ import { MusicScreen } from "screens/Music.Screen";
 import { FavoritesScreen } from "screens/Favorites.Screen";
 import { LocationScreen } from "screens/Location.Screen";
 import { TabRouter } from "./Tab.Router";
+import { NotificationScreen } from "screens/Notification.Screen";
 
 const MainStack = createStackNavigator();
 
@@ -25,6 +26,10 @@ export const MainRouter: React.FC = () => {
       <MainStack.Screen name="MusicScreen" component={MusicScreen} />
       <MainStack.Screen name="FavoritesScreen" component={FavoritesScreen} />
       <MainStack.Screen name="LocationScreen" component={LocationScreen} />
+      <MainStack.Screen
+        name="NotificationScreen"
+        component={NotificationScreen}
+      />
     </MainStack.Navigator>
   );
 };

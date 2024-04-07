@@ -1,47 +1,44 @@
 /** @format */
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, Text } from "react-native";
 import { Avatar } from "components/Avatar";
 import { Header } from "components/Header";
 import Ring from "../../assets/vectors/ring.svg";
 import { colors } from "theme/colors";
 import { MainSection } from "components/MainSection";
-import { Card, MainCardList } from "components/Card";
-import { recentlyPlayedDates, recommendDates } from "mock/card.dates";
+import { useNavigation } from "@react-navigation/native";
+import { carDate } from "mock/card.dates";
+import { Card } from "components/Card";
 import { FlashList } from "@shopify/flash-list";
-import { SafeTopContainer } from "containers/SafeTopContainer";
-import { SafeBottomContainer } from "containers/SafeBottomContainer";
-import { SafeMainContainer } from "containers/SafeMainContainer";
 
 export const HomeScreen: React.FC = () => {
-  const renderRecentlyMusic = ({ item }: { item: any }) => {
-    return <Card {...item} />;
+  const { navigate } = useNavigation();
+
+  const renderCards = ({ url, title }: any, index: number) => {
+    return <Card key={index} title={title} url={url} />;
   };
 
-  const renderRecommendMusic = ({ item }: { item: any }) => {
-    return <Card recommend={"recommend"} {...item} />;
-  };
-  const leftOnPress = () => {
-    console.log("LEFT ON PRESS");
-  };
-
-  const rightOnPress = () => {
-    console.log("RIGHT ON PRESS");
+  const renderCardsHorizontal = (item: any, index: number) => {
+    return <Card size={"small"} key={index} {...item} horizontal />;
   };
 
   return (
-    <View style={styles.root}>
+    <ScrollView
+      indicatorStyle={"white"}
+      contentContainerStyle={styles.scrollView}
+      style={styles.root}
+    >
       <View style={styles.container}>
         <Avatar
-          title={"Sarwar Jahan"}
+          title={"Nadir Musayev"}
           caption={"Gold Member"}
           url={
             "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
           }
         />
         <Header
-          leftOnPress={leftOnPress}
-          rightOnPress={rightOnPress}
+          // leftOnPress={leftOnPress}
+          rightOnPress={() => navigate("NotificationScreen" as never)}
           right={Ring}
           color={colors.gray}
           colorPrimary={colors.primary}
@@ -52,35 +49,21 @@ export const HomeScreen: React.FC = () => {
         text={"Listen The"}
         title={"Latest Musics"}
       />
-      <MainCardList
-        style={styles.mainCardListRecent}
-        mainText={"Recently Played"}
-      >
-        <FlashList
-          data={recentlyPlayedDates}
-          horizontal={true}
-          renderItem={renderRecentlyMusic}
-          keyExtractor={(item) => item.id}
-          estimatedItemSize={200}
+      <View>
+        <Text style={styles.mainText}>Recently Played</Text>
+        <ScrollView
           showsHorizontalScrollIndicator={false}
-        />
-      </MainCardList>
-      <MainCardList
-        style={styles.mainCardListRecommend}
-        mainText={"Recommend for you"}
-      >
-        <View style={styles.flatContainer}>
-          <FlashList
-            data={recommendDates}
-            renderItem={renderRecommendMusic}
-            keyExtractor={(item) => item.id}
-            estimatedItemSize={200}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 900 }}
-          />
+          contentContainerStyle={styles.scrollView}
+          horizontal
+        >
+          {carDate.map(renderCards)}
+        </ScrollView>
+        <View style={styles.cardHorizontal}>
+          <Text style={styles.textRecommend}>Recommend for you</Text>
+          {carDate.map(renderCardsHorizontal)}
         </View>
-      </MainCardList>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -90,6 +73,17 @@ const styles = StyleSheet.create({
   root: {
     paddingHorizontal: 20,
     backgroundColor: colors.dark,
+  },
+
+  mainText: {
+    fontSize: 22,
+    color: colors.white,
+    paddingTop: 44,
+    paddingBottom: 18,
+  },
+
+  scrollView: {
+    gap: 16,
   },
 
   mainCardListRecent: {
@@ -115,5 +109,17 @@ const styles = StyleSheet.create({
 
   mainContainer: {
     paddingTop: 20,
+  },
+
+  textRecommend: {
+    paddingTop: 28,
+    fontSize: 18,
+    fontFamily: "Nunito-SemiBold",
+    color: colors.white,
+  },
+
+  cardHorizontal: {
+    gap: 17,
+    paddingBottom: 20,
   },
 });
