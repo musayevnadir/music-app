@@ -30,6 +30,7 @@ export const MainRouter: React.FC = () => {
         name="NotificationScreen"
         component={NotificationScreen}
       />
+      <MainStack.Screen name="FavoriteScreen" component={FavoritesScreen} />
     </MainStack.Navigator>
   );
 };

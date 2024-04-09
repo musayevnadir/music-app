@@ -18,7 +18,13 @@ export const HomeScreen: React.FC = () => {
     return <Card key={index} title={title} url={url} />;
   };
 
-  const renderCardsHorizontal = (item: any, index: number) => {
+  const renderCardsHorizontal = ({
+    item,
+    index,
+  }: {
+    item: any;
+    index: number;
+  }) => {
     return <Card size={"small"} key={index} {...item} horizontal />;
   };
 
@@ -37,7 +43,6 @@ export const HomeScreen: React.FC = () => {
           }
         />
         <Header
-          // leftOnPress={leftOnPress}
           rightOnPress={() => navigate("NotificationScreen" as never)}
           right={Ring}
           color={colors.gray}
@@ -60,7 +65,13 @@ export const HomeScreen: React.FC = () => {
         </ScrollView>
         <View style={styles.cardHorizontal}>
           <Text style={styles.textRecommend}>Recommend for you</Text>
-          {carDate.map(renderCardsHorizontal)}
+          <FlashList
+            scrollEnabled={false}
+            renderItem={renderCardsHorizontal}
+            data={carDate}
+            contentContainerStyle={styles.flashHorizontal}
+            estimatedItemSize={200}
+          />
         </View>
       </View>
     </ScrollView>
@@ -121,5 +132,11 @@ const styles = StyleSheet.create({
   cardHorizontal: {
     gap: 17,
     paddingBottom: 20,
+  },
+
+  flashHorizontal: {
+    // gap: 20,
+    // backgroundColor: "red",
+    // paddingBottom: 20,
   },
 });

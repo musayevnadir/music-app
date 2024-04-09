@@ -32,9 +32,10 @@ export const Header: React.FC<IHeader> = ({
   leftOnPress,
   rightOnPress,
   color,
+  style,
 }) => {
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, style]}>
       <Pressable
         style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
         onPress={leftOnPress}
@@ -48,7 +49,7 @@ export const Header: React.FC<IHeader> = ({
         onPress={rightOnPress}
         hitSlop={15}
       >
-        {right ? React.createElement(right, { color: color }) : null}
+        {right ? React.createElement(right, { color: colors.gray }) : null}
       </Pressable>
     </View>
   );
