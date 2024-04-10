@@ -1,125 +1,123 @@
 /** @format */
 import React from "react";
 import {
-  View,
   Text,
   StyleSheet,
   Image,
   StyleProp,
   ViewStyle,
+  View,
+  Pressable,
 } from "react-native";
 import { colors } from "theme/colors";
 
 // ! Interface
 
-interface IMainCardList {
-  children: JSX.Element | JSX.Element[];
-  mainText?: string;
+interface ICard {
+  url?: string;
+  title?: string;
+  singer?: string;
+  description?: string;
+  horizontal?: boolean;
+  onPress?: () => void;
+  size?: "small" | "medium" | "large";
   style?: StyleProp<ViewStyle>;
 }
-
-interface ICard {
-  image?: any;
-  title?: string;
-  recommend?: string;
-  genre?: string;
-  performer?: string;
-  follow?: string;
-}
-
-//  ! Component
-
-export const MainCardList: React.FC<IMainCardList> = ({
-  children,
-  mainText,
-  style,
-}) => {
-  return (
-    <View>
-      <Text style={[styles.mainText, style]}>{mainText}</Text>
-      {children}
-    </View>
-  );
-};
 
 // ! Component
 
 export const Card: React.FC<ICard> = ({
   title,
-  image,
-  recommend,
-  genre,
-  performer,
-  follow,
+  url,
+  size = "medium",
+  singer,
+  description,
+  horizontal,
+  onPress,
+  style,
 }) => {
+  const isTextVisible = title || singer || description;
+
   return (
-    <View
-      style={[
-        styles.containerCard,
-        recommend ? styles.containerCardRecommend : null,
-      ]}
+    <Pressable
+      onPress={onPress}
+      style={[styles.root, horizontal && styles.horizontal, style]}
     >
-      <Image resizeMode={"cover"} source={image} />
-      {!recommend ? <Text style={styles.title}>{title}</Text> : null}
-      {recommend ? (
-        <View style={styles.containerRecommend}>
-          <Text style={styles.genre}>{genre}</Text>
-          <Text style={styles.performer}>{performer}</Text>
-          <Text style={styles.follow}>{follow}</Text>
+      <Image style={[styles[size], styles.image]} source={{ uri: url }} />
+      {isTextVisible ? (
+        <View style={styles.texts}>
+          {title ? (
+            <Text
+              numberOfLines={2}
+              style={[styles.title, size === "small" && styles.largeTitle]}
+            >
+              {title}
+            </Text>
+          ) : null}
+          {singer ? (
+            <Text style={[styles.title, styles.singer]}>{singer}</Text>
+          ) : null}
+          {description ? (
+            <Text numberOfLines={2} style={[styles.title, styles.description]}>
+              {description}
+            </Text>
+          ) : null}
         </View>
       ) : null}
-    </View>
+    </Pressable>
   );
 };
 
 // ! Styles
 
 const styles = StyleSheet.create({
-  containerRecommend: {
-    gap: 5,
-  },
-  mainText: {
-    fontFamily: "Nunito-SemiBold",
-    color: colors.white,
+  root: {
+    gap: 6,
+    alignItems: "center",
   },
 
-  containerCard: {
-    paddingTop: 18,
-    paddingRight: 16,
-    gap: 6,
+  horizontal: {
+    flexDirection: "row",
+    gap: 15,
+  },
+
+  image: {
+    borderRadius: 10,
+  },
+
+  texts: {
+    gap: 5,
+    maxWidth: 106,
   },
 
   title: {
     fontFamily: "Nunito-Regular",
     fontSize: 14,
     color: colors.white,
-    textAlign: "center",
   },
 
-  containerCardRecommend: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 15,
+  largeTitle: {
+    fontSize: 16,
   },
 
-  genre: {
-    fontFamily: "Nunito-Regular",
-    fontSize: 17,
-    lineHeight: 22,
-    color: colors.white,
-  },
-
-  performer: {
-    fontFamily: "Nunito-Regular",
+  singer: {
     fontSize: 13,
-    lineHeight: 18,
-    color: colors.lightGray,
   },
 
-  follow: {
-    fontFamily: "Nunito-Regular",
-    fontSize: 13,
-    lineHeight: 18,
-    color: colors.lightGray,
+  description: {
+    fontSize: 14,
+  },
+
+  small: {
+    height: 88,
+    width: 88,
+  },
+  medium: {
+    height: 81,
+    width: 101,
+  },
+  large: {
+    height: 111,
+    width: 106,
   },
 });
