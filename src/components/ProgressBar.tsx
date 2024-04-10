@@ -48,10 +48,6 @@ export const ProgressBar: React.FC<IProgressBar> = ({
 // ! Styles
 
 const styles = StyleSheet.create({
-  //   root: {
-  //     gap: 34,
-  //   },
-
   bar: {
     height: 4,
     backgroundColor: colors.white,

@@ -1,10 +1,15 @@
 /** @format */
-import { Header } from "components/Header";
 import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import { Header } from "components/Header";
 import { colors } from "theme/colors";
 import ArrowLeftVector from "../../assets/vectors/arrow-left.svg";
 import FavoriteVector from "../../assets/vectors/heart.svg";
+import ShuffleVector from "../../assets/vectors/shuffle.svg";
+import SkipBackVector from "../../assets/vectors/skip-back.svg";
+import SkipForwardVector from "../../assets/vectors/skip-forward.svg";
+import PauseVector from "../../assets/vectors/pause.svg";
+import RepeatVector from "../../assets/vectors/repeat.svg";
 import { useNavigation } from "@react-navigation/native";
 import { ProgressBar } from "components/ProgressBar";
 
@@ -31,7 +36,16 @@ export const MusicScreen: React.FC = () => {
         </View>
       </View>
       <View style={styles.controller}>
-        <ProgressBar time={185} currentTime={90} />
+        <ProgressBar time={185} currentTime={100} />
+        <View style={styles.buttons}>
+          <ShuffleVector color={colors.white} />
+          <SkipBackVector color={colors.white} />
+          <TouchableOpacity style={styles.pause}>
+            <PauseVector color={colors.white} />
+          </TouchableOpacity>
+          <SkipForwardVector color={colors.white} />
+          <RepeatVector color={colors.white} />
+        </View>
       </View>
     </View>
   );
@@ -79,5 +93,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
-  controller: {},
+  controller: {
+    gap: 34,
+  },
+
+  buttons: {
+    // backgroundColor: "green",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  pause: {
+    padding: 16,
+    backgroundColor: colors.primary,
+    borderRadius: 99,
+  },
 });
