@@ -69,8 +69,11 @@ export const HomeScreen: React.FC = () => {
             scrollEnabled={false}
             renderItem={renderCardsHorizontal}
             data={carDate}
-            contentContainerStyle={styles.flashHorizontal}
             estimatedItemSize={200}
+            ItemSeparatorComponent={() => (
+              <View style={styles.flashHorizontal} />
+            )}
+            showsVerticalScrollIndicator={false}
           />
         </View>
       </View>
@@ -135,8 +138,6 @@ const styles = StyleSheet.create({
   },
 
   flashHorizontal: {
-    // gap: 20,
-    // backgroundColor: "red",
-    // paddingBottom: 20,
+    height: 20,
   },
 });
