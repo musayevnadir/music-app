@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
   },
 
   buttons: {
-    // backgroundColor: "green",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
