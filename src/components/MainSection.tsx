@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { Input } from "./Input";
 import Search from "../../assets/vectors/search.svg";
 import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
 
 // ! Interface
 
@@ -17,7 +18,7 @@ interface IMainSection {
 
 export const MainSection: React.FC<IMainSection> = ({ text, title, style }) => {
   return (
-    <View style={[styles.root, style]}>
+    <View style={[commonStyles.alignCenterRow, styles.root, style]}>
       <View>
         <Text style={styles.text}>{text}</Text>
         <Text style={styles.text}>{title}</Text>
@@ -32,8 +33,6 @@ export const MainSection: React.FC<IMainSection> = ({ text, title, style }) => {
 const styles = StyleSheet.create({
   root: {
     gap: 15,
-    flexDirection: "row",
-    alignItems: "center",
   },
 
   text: {

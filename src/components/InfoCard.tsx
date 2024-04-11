@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-native";
 import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
 
 // ! Interface
 
@@ -34,7 +35,7 @@ export const InfoCard: React.FC<IInfoCard> = ({
   return (
     <View style={style}>
       <Image style={styles.image} source={{ uri: imageUrl }} />
-      <View style={styles.infos}>
+      <View style={[commonStyles.flex, styles.infos]}>
         <Text numberOfLines={1} style={styles.name}>
           {name}
         </Text>
@@ -56,7 +57,6 @@ export const InfoCard: React.FC<IInfoCard> = ({
 
 const styles = StyleSheet.create({
   infos: {
-    flex: 1,
     gap: 5,
   },
 

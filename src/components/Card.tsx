@@ -11,6 +11,7 @@ import {
   ImageStyle,
 } from "react-native";
 import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
 
 // ! Interface
 
@@ -44,7 +45,12 @@ export const Card: React.FC<ICard> = ({
   return (
     <Pressable
       onPress={onPress}
-      style={[styles.root, horizontal && styles.horizontal, style]}
+      style={[
+        commonStyles.flexAlignCenter,
+        styles.root,
+        horizontal && styles.horizontal,
+        style,
+      ]}
     >
       <Image
         style={[styles[size], styles.image, imageStyle]}
@@ -79,7 +85,6 @@ export const Card: React.FC<ICard> = ({
 const styles = StyleSheet.create({
   root: {
     gap: 6,
-    alignItems: "center",
   },
 
   horizontal: {

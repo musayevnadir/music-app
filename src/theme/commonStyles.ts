@@ -2,10 +2,9 @@
 
 import { StyleSheet, TextStyle, ViewStyle } from "react-native";
 
-export const CommonStyles = StyleSheet.create({
+export const commonStyles = StyleSheet.create({
   flex: {
     flex: 1,
-    backgroundColor: "#ffff",
   } as ViewStyle | TextStyle,
   flexJustifyCenter: {
     flex: 1,
@@ -18,6 +17,10 @@ export const CommonStyles = StyleSheet.create({
   flexRow: {
     flex: 1,
     flexDirection: "row",
+  } as ViewStyle,
+  flexRowJustifyBetween: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   } as ViewStyle,
   flexAlignRow: {
     flex: 1,
