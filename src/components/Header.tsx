@@ -9,6 +9,7 @@ import {
   StyleProp,
 } from "react-native";
 import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
 
 // ! Interface
 
@@ -35,7 +36,7 @@ export const Header: React.FC<IHeader> = ({
   style,
 }) => {
   return (
-    <View style={[styles.root, style]}>
+    <View style={[commonStyles.flexRowJustifyBetween, style]}>
       <Pressable
         style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
         onPress={leftOnPress}
@@ -58,11 +59,6 @@ export const Header: React.FC<IHeader> = ({
 // ! Styles
 
 const styles = StyleSheet.create({
-  root: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
   title: {
     fontFamily: "Nunito-SemiBold",
     fontSize: 18,

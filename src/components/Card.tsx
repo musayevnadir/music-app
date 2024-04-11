@@ -8,8 +8,10 @@ import {
   ViewStyle,
   View,
   Pressable,
+  ImageStyle,
 } from "react-native";
 import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
 
 // ! Interface
 
@@ -22,6 +24,7 @@ interface ICard {
   onPress?: () => void;
   size?: "small" | "medium" | "large";
   style?: StyleProp<ViewStyle>;
+  imageStyle?: StyleProp<ImageStyle>;
 }
 
 // ! Component
@@ -35,15 +38,24 @@ export const Card: React.FC<ICard> = ({
   horizontal,
   onPress,
   style,
+  imageStyle,
 }) => {
   const isTextVisible = title || singer || description;
 
   return (
     <Pressable
       onPress={onPress}
-      style={[styles.root, horizontal && styles.horizontal, style]}
+      style={[
+        commonStyles.flexAlignCenter,
+        styles.root,
+        horizontal && styles.horizontal,
+        style,
+      ]}
     >
-      <Image style={[styles[size], styles.image]} source={{ uri: url }} />
+      <Image
+        style={[styles[size], styles.image, imageStyle]}
+        source={{ uri: url }}
+      />
       {isTextVisible ? (
         <View style={styles.texts}>
           {title ? (
@@ -73,7 +85,6 @@ export const Card: React.FC<ICard> = ({
 const styles = StyleSheet.create({
   root: {
     gap: 6,
-    alignItems: "center",
   },
 
   horizontal: {

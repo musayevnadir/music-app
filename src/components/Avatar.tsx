@@ -2,6 +2,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
 
 // ! Interface
 
@@ -15,7 +16,7 @@ interface IAvatar {
 
 export const Avatar: React.FC<IAvatar> = ({ title, caption, url }) => {
   return (
-    <View style={styles.root}>
+    <View style={[commonStyles.alignCenterRow, styles.root]}>
       {url ? <Image style={styles.image} source={{ uri: url }} /> : null}
       <View>
         <Text style={styles.title}>{title}</Text>
@@ -29,8 +30,6 @@ export const Avatar: React.FC<IAvatar> = ({ title, caption, url }) => {
 
 const styles = StyleSheet.create({
   root: {
-    flexDirection: "row",
-    alignItems: "center",
     gap: 13,
   },
 

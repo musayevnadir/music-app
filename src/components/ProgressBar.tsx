@@ -9,6 +9,7 @@ import {
   DimensionValue,
 } from "react-native";
 import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
 import { convertTime } from "utils/time";
 
 // ! Interface
@@ -37,7 +38,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
           style={[styles.progress, { width: progress as DimensionValue }]}
         ></View>
       </View>
-      <View style={styles.texts}>
+      <View style={commonStyles.flexRowJustifyBetween}>
         <Text style={styles.time}>{convertTime(saveCurrentTime)}</Text>
         <Text style={styles.time}>{convertTime(time)}</Text>
       </View>
@@ -61,11 +62,6 @@ const styles = StyleSheet.create({
     height: "100%",
     position: "absolute",
     zIndex: 5,
-  },
-
-  texts: {
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
 
   time: {

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { TextInput, StyleSheet, View } from "react-native";
 import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
 
 // ! Interface
 
@@ -25,16 +26,21 @@ export const Input: React.FC<IInput> = ({ icon, placeholder, value }) => {
   };
 
   return (
-    <View style={[styles.container, isFocused ? styles.isFocused : null]}>
+    <View
+      style={[
+        commonStyles.flexAlignRow,
+        styles.container,
+        isFocused ? styles.isFocused : null,
+      ]}
+    >
       {!isFocused ? (icon ? React.createElement(icon) : null) : null}
       <TextInput
+        style={[commonStyles.flex, styles.input]}
         onFocus={onFocus}
         onBlur={onBlur}
         value={value}
-        // onChangeText={(text) => onChangeText(text)}
         placeholderTextColor={colors.gray}
         placeholder={placeholder}
-        style={styles.input}
       ></TextInput>
     </View>
   );
@@ -44,10 +50,7 @@ export const Input: React.FC<IInput> = ({ icon, placeholder, value }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
     paddingHorizontal: 22,
-    flexDirection: "row",
     gap: 20,
   },
 
@@ -58,7 +61,6 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    flex: 1,
     color: colors.gray,
     fontSize: 14,
     fontFamily: "Nunito-Regular",

@@ -66,15 +66,6 @@ export const TabRouter: React.FC = () => {
   );
 };
 
-// ! Styles
-
-export const styles = StyleSheet.create({
-  tabView: {
-    alignItems: "center",
-    width: "100%",
-  },
-});
-
 // ! Colors Tab Bottom
 
 const colors = {

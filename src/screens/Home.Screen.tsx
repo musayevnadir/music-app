@@ -10,6 +10,8 @@ import { useNavigation } from "@react-navigation/native";
 import { carDate } from "mock/card.dates";
 import { Card } from "components/Card";
 import { FlashList } from "@shopify/flash-list";
+import { flashSize } from "configs/flashSize";
+import { commonStyles } from "theme/commonStyles";
 
 export const HomeScreen: React.FC = () => {
   const { navigate } = useNavigation();
@@ -30,11 +32,12 @@ export const HomeScreen: React.FC = () => {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       indicatorStyle={"white"}
       contentContainerStyle={styles.scrollView}
       style={styles.root}
     >
-      <View style={styles.container}>
+      <View style={commonStyles.alignCenterJustifyBetweenRow}>
         <Avatar
           title={"Nadir Musayev"}
           caption={"Gold Member"}
@@ -65,16 +68,18 @@ export const HomeScreen: React.FC = () => {
         </ScrollView>
         <View style={styles.cardHorizontal}>
           <Text style={styles.textRecommend}>Recommend for you</Text>
-          <FlashList
-            scrollEnabled={false}
-            renderItem={renderCardsHorizontal}
-            data={carDate}
-            estimatedItemSize={200}
-            ItemSeparatorComponent={() => (
-              <View style={styles.flashHorizontal} />
-            )}
-            showsVerticalScrollIndicator={false}
-          />
+          <View style={flashSize.flash}>
+            <FlashList
+              scrollEnabled={false}
+              renderItem={renderCardsHorizontal}
+              data={carDate}
+              estimatedItemSize={200}
+              ItemSeparatorComponent={() => (
+                <View style={styles.flashHorizontal} />
+              )}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -108,17 +113,6 @@ const styles = StyleSheet.create({
   mainCardListRecommend: {
     paddingTop: 28,
     fontSize: 18,
-  },
-
-  flatContainer: {
-    width: "100%",
-    height: "100%",
-  },
-
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
   },
 
   mainContainer: {
