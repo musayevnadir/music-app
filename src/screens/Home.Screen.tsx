@@ -11,6 +11,7 @@ import { carDate } from "mock/card.dates";
 import { Card } from "components/Card";
 import { FlashList } from "@shopify/flash-list";
 import { flashSize } from "configs/flashSize";
+import { commonStyles } from "theme/commonStyles";
 
 export const HomeScreen: React.FC = () => {
   const { navigate } = useNavigation();
@@ -36,7 +37,7 @@ export const HomeScreen: React.FC = () => {
       contentContainerStyle={styles.scrollView}
       style={styles.root}
     >
-      <View style={styles.container}>
+      <View style={commonStyles.alignCenterJustifyBetweenRow}>
         <Avatar
           title={"Nadir Musayev"}
           caption={"Gold Member"}
@@ -112,17 +113,6 @@ const styles = StyleSheet.create({
   mainCardListRecommend: {
     paddingTop: 28,
     fontSize: 18,
-  },
-
-  flatContainer: {
-    width: "100%",
-    height: "100%",
-  },
-
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
   },
 
   mainContainer: {

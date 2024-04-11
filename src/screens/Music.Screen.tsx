@@ -12,6 +12,7 @@ import PauseVector from "../../assets/vectors/pause.svg";
 import RepeatVector from "../../assets/vectors/repeat.svg";
 import { useNavigation } from "@react-navigation/native";
 import { ProgressBar } from "components/ProgressBar";
+import { commonStyles } from "theme/commonStyles";
 
 export const MusicScreen: React.FC = () => {
   const { navigate } = useNavigation();
@@ -37,7 +38,7 @@ export const MusicScreen: React.FC = () => {
       </View>
       <View style={styles.controller}>
         <ProgressBar time={185} currentTime={100} />
-        <View style={styles.buttons}>
+        <View style={commonStyles.alignCenterJustifyBetweenRow}>
           <ShuffleVector color={colors.white} />
           <SkipBackVector color={colors.white} />
           <TouchableOpacity style={styles.pause}>
@@ -95,12 +96,6 @@ const styles = StyleSheet.create({
 
   controller: {
     gap: 34,
-  },
-
-  buttons: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
 
   pause: {

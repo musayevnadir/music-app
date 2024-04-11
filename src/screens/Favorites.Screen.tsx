@@ -33,13 +33,13 @@ export const FavoritesScreen: React.FC = ({}) => {
         {infoCardDate.map(
           ({ email, memberSince, imageUrl, musicLoverSince, name }, index) => (
             <InfoCard
+              style={styles.infoCard}
               key={index}
               name={name}
               email={email}
               imageUrl={imageUrl}
               memberSince={memberSince}
               musicLoverSince={musicLoverSince}
-              style={styles.infoCard}
             />
           )
         )}
