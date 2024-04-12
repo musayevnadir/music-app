@@ -17,6 +17,7 @@ const App: React.FC = () => {
     "Nunito-Regular": require("./assets/fonts/Nunito-Regular.ttf"),
     "Nunito-SemiBold": require("./assets/fonts/Nunito-SemiBold.ttf"),
   });
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
       await SplashScreen.hideAsync();
