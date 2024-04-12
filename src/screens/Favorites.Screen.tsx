@@ -1,5 +1,5 @@
 /** @format */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { colors } from "theme/colors";
 import { Header } from "components/Header";
@@ -9,19 +9,40 @@ import { infoCardDate } from "mock/infoCard.dates";
 import { carDate } from "mock/card.dates";
 import { FlashList } from "@shopify/flash-list";
 import { Card } from "components/Card";
-import { flashSize } from "configs/flashSize";
 import { cardWidth } from "utils/size-screen";
 
 // ! Component
 
 export const FavoritesScreen: React.FC = ({}) => {
+  const [radioData, setRadioData] = useState([]);
+
+  // ! Fetch
+
+  useEffect(() => {
+    const url = "https://api.deezer.com/radio/31061/tracks";
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setRadioData(data.data);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const renderFavoriteCard = ({ item }: { item: any }) => {
     return (
       <Card
         style={styles.cardWidth}
         imageStyle={{ width: cardWidth }}
         size={"large"}
-        url={item.url}
+        picture_small={item.artist.picture_small}
       />
     );
   };
@@ -45,25 +66,30 @@ export const FavoritesScreen: React.FC = ({}) => {
         )}
       </View>
       <Text style={styles.textAlbum}>Favourite Album</Text>
-      <View style={flashSize.flash}>
+      <ScrollView style={styles.scrollSize} horizontal>
         <FlashList
           horizontal
-          data={carDate}
-          renderItem={({ item }) => <Card url={item.url} />}
+          scrollEnabled={false}
+          data={radioData}
+          renderItem={({ item }) => (
+            <Card picture_small={(item as any).album.cover_small} />
+          )}
           estimatedItemSize={200}
           showsHorizontalScrollIndicator={false}
           ItemSeparatorComponent={() => (
             <View style={styles.flashGapHorizontal} />
           )}
         />
-      </View>
+      </ScrollView>
+
       <Text style={[styles.textAlbum, styles.textMusic]}>Favourite Music</Text>
-      <View style={flashSize.flash}>
+      <View style={styles.flashSize}>
         <FlashList
+          scrollEnabled={false}
           contentContainerStyle={styles.flashBottom}
           numColumns={3}
           horizontal={false}
-          data={carDate}
+          data={radioData}
           renderItem={renderFavoriteCard}
           estimatedItemSize={200}
           showsHorizontalScrollIndicator={false}
@@ -117,5 +143,16 @@ const styles = StyleSheet.create({
 
   cardWidth: {
     width: "100%",
+  },
+
+  flashSize: {
+    flex: 1,
+    minHeight: 300,
+  },
+
+  scrollSize: {
+    flex: 1,
+    minHeight: 85,
+    minWidth: "100%",
   },
 });

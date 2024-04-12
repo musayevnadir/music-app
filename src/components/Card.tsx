@@ -16,6 +16,10 @@ import { commonStyles } from "theme/commonStyles";
 // ! Interface
 
 interface ICard {
+  name?: string;
+  picture_small?: string;
+  cover_small?: string;
+  title_short?: string;
   url?: string;
   title?: string;
   singer?: string;
@@ -31,6 +35,8 @@ interface ICard {
 
 export const Card: React.FC<ICard> = ({
   title,
+  name,
+  title_short,
   url,
   size = "medium",
   singer,
@@ -39,8 +45,10 @@ export const Card: React.FC<ICard> = ({
   onPress,
   style,
   imageStyle,
+  picture_small,
+  cover_small,
 }) => {
-  const isTextVisible = title || singer || description;
+  const isTextVisible = name || title || singer || description || title_short;
 
   return (
     <Pressable
@@ -54,24 +62,25 @@ export const Card: React.FC<ICard> = ({
     >
       <Image
         style={[styles[size], styles.image, imageStyle]}
-        source={{ uri: url }}
+        source={{ uri: picture_small || cover_small }}
       />
       {isTextVisible ? (
         <View style={styles.texts}>
-          {title ? (
+          {name || title ? (
             <Text
               numberOfLines={2}
               style={[styles.title, size === "small" && styles.largeTitle]}
             >
+              {name}
               {title}
             </Text>
           ) : null}
           {singer ? (
             <Text style={[styles.title, styles.singer]}>{singer}</Text>
           ) : null}
-          {description ? (
+          {title_short ? (
             <Text numberOfLines={2} style={[styles.title, styles.description]}>
-              {description}
+              {title_short}
             </Text>
           ) : null}
         </View>

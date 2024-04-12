@@ -1,5 +1,6 @@
 /** @format */
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View, Text } from "react-native";
 import { Avatar } from "components/Avatar";
 import { Header } from "components/Header";
@@ -7,17 +8,45 @@ import Ring from "../../assets/vectors/ring.svg";
 import { colors } from "theme/colors";
 import { MainSection } from "components/MainSection";
 import { useNavigation } from "@react-navigation/native";
-import { carDate } from "mock/card.dates";
 import { Card } from "components/Card";
 import { FlashList } from "@shopify/flash-list";
-import { flashSize } from "configs/flashSize";
 import { commonStyles } from "theme/commonStyles";
 
 export const HomeScreen: React.FC = () => {
   const { navigate } = useNavigation();
 
-  const renderCards = ({ url, title }: any, index: number) => {
-    return <Card key={index} title={title} url={url} />;
+  const [radioData, setRadioData] = useState([]);
+
+  // ! Fetch
+
+  useEffect(() => {
+    const url = "https://api.deezer.com/radio/31061/tracks";
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setRadioData(data.data);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // ! Render function FlashLIst
+
+  const renderCards = ({ item, index }: { item: any; index: number }) => {
+    return (
+      <Card
+        key={index}
+        name={item.artist.name}
+        picture_small={item.artist.picture_small}
+      />
+    );
   };
 
   const renderCardsHorizontal = ({
@@ -27,7 +56,17 @@ export const HomeScreen: React.FC = () => {
     item: any;
     index: number;
   }) => {
-    return <Card size={"small"} key={index} {...item} horizontal />;
+    return (
+      <Card
+        horizontal
+        size={"small"}
+        key={index}
+        name={item.artist.name}
+        title={item.title}
+        picture_small={item.artist.picture_small}
+        title_short={item.title_short}
+      />
+    );
   };
 
   return (
@@ -42,7 +81,7 @@ export const HomeScreen: React.FC = () => {
           title={"Nadir Musayev"}
           caption={"Gold Member"}
           url={
-            "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
+            "https://hips.hearstapps.com/hmg-prod/images/9th-annual-ves-awards---red-carpet.jpg"
           }
         />
         <Header
@@ -57,30 +96,33 @@ export const HomeScreen: React.FC = () => {
         text={"Listen The"}
         title={"Latest Musics"}
       />
-      <View>
-        <Text style={styles.mainText}>Recently Played</Text>
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.scrollView}
+      <Text style={styles.mainText}>Recently Played</Text>
+      <ScrollView
+        style={styles.scrollSize}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.scrollView}
+        horizontal
+      >
+        <FlashList
           horizontal
-        >
-          {carDate.map(renderCards)}
-        </ScrollView>
-        <View style={styles.cardHorizontal}>
-          <Text style={styles.textRecommend}>Recommend for you</Text>
-          <View style={flashSize.flash}>
-            <FlashList
-              scrollEnabled={false}
-              renderItem={renderCardsHorizontal}
-              data={carDate}
-              estimatedItemSize={200}
-              ItemSeparatorComponent={() => (
-                <View style={styles.flashHorizontal} />
-              )}
-              showsVerticalScrollIndicator={false}
-            />
-          </View>
-        </View>
+          scrollEnabled={false}
+          renderItem={renderCards}
+          data={radioData}
+          estimatedItemSize={200}
+          ItemSeparatorComponent={() => <View style={styles.flashHorizontal} />}
+          showsVerticalScrollIndicator={false}
+        />
+      </ScrollView>
+      <View style={styles.cardHorizontal}>
+        <Text style={styles.textRecommend}>Recommend for you</Text>
+        <FlashList
+          scrollEnabled={false}
+          renderItem={renderCardsHorizontal}
+          data={radioData}
+          estimatedItemSize={200}
+          ItemSeparatorComponent={() => <View style={styles.flashVertical} />}
+          showsVerticalScrollIndicator={false}
+        />
       </View>
     </ScrollView>
   );
@@ -127,11 +169,23 @@ const styles = StyleSheet.create({
   },
 
   cardHorizontal: {
+    flex: 1,
+    minHeight: 300,
     gap: 17,
     paddingBottom: 20,
   },
 
   flashHorizontal: {
+    width: 9,
+  },
+
+  flashVertical: {
     height: 20,
+  },
+
+  scrollSize: {
+    flex: 1,
+    minHeight: 105,
+    minWidth: "100%",
   },
 });
