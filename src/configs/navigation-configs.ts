@@ -1,9 +1,17 @@
 /** @format */
 import { StyleSheet, Platform } from "react-native";
+import { colors } from "theme/colors";
 
-export const stackOption = {
+// ! Stack Navigation Styles
+
+export const stackOptions = {
   headerShown: false,
+  cardStyle: {
+    backgroundColor: colors.dark,
+  },
 };
+
+// ! Tab Bottom Navigation Styles
 
 const styles = StyleSheet.create({
   tabBarStyle: {
@@ -12,18 +20,19 @@ const styles = StyleSheet.create({
     height: 85,
     borderTopStartRadius: 40,
     borderTopEndRadius: 40,
-    backgroundColor: "#0A071E",
+    backgroundColor: colors.dark,
     borderTopColor: "transparent",
 
     ...Platform.select({
       ios: {
         shadowColor: "white",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 1,
+        shadowOpacity: 0.1,
         shadowRadius: 5,
       },
       android: {
-        elevation: 5,
+        shadowColor: "white",
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
       },
     }),
   },
@@ -31,7 +40,7 @@ const styles = StyleSheet.create({
 
 export const tabOptions = {
   headerShown: false,
-  tabBarActiveTintColor: "#4870FF",
+  tabBarActiveTintColor: colors.primary,
   tabBarStyle: styles.tabBarStyle,
   tabBarShowLabel: false,
 };

@@ -1,7 +1,7 @@
 /** @format */
 import { Header } from "components/Header";
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { colors } from "theme/colors";
 import ArrowLeftVector from "../../assets/vectors/arrow-left.svg";
 import HeartVector from "../../assets/vectors/heart.svg";
@@ -20,6 +20,9 @@ export const NotificationScreen: React.FC = () => {
         colorPrimary={colors.primary}
         title={"Ophelia by Steven"}
       />
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Notification</Text>
+      </View>
     </View>
   );
 };
@@ -31,6 +34,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor: colors.dark,
+  },
+
+  textContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   text: {

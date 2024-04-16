@@ -11,6 +11,18 @@ import { useNavigation } from "@react-navigation/native";
 import { Card } from "components/Card";
 import { FlashList } from "@shopify/flash-list";
 import { commonStyles } from "theme/commonStyles";
+import { Routes } from "routers/ROUTES";
+
+// ! Interface
+
+interface MusicParams {
+  id?: number;
+  title?: string;
+  picture_big?: string;
+  name?: string;
+}
+
+console.log(Ring);
 
 export const HomeScreen: React.FC = () => {
   const { navigate } = useNavigation();
@@ -44,7 +56,7 @@ export const HomeScreen: React.FC = () => {
       <Card
         key={index}
         name={item.artist.name}
-        picture_small={item.artist.picture_small}
+        picture_small={item.artist.picture_medium}
       />
     );
   };
@@ -58,15 +70,35 @@ export const HomeScreen: React.FC = () => {
   }) => {
     return (
       <Card
+        onPress={() =>
+          handleMusic({
+            id: item.artist.id,
+            title: item.title,
+            picture_big: item.artist.picture_big,
+            name: item.artist.name,
+          })
+        }
         horizontal
         size={"small"}
         key={index}
         name={item.artist.name}
         title={item.title}
-        picture_small={item.artist.picture_small}
+        picture_small={item.artist.picture_medium}
         title_short={item.title_short}
       />
     );
+  };
+
+  // ! Handle Music Function
+
+  const handleMusic = ({ id, title, picture_big, name }: MusicParams) => {
+    (navigate as any)(Routes.music, {
+      musicId: id,
+      musicName: name,
+      musicTitle: title,
+      musicPictureBig: picture_big,
+      name,
+    });
   };
 
   return (
@@ -85,7 +117,7 @@ export const HomeScreen: React.FC = () => {
           }
         />
         <Header
-          rightOnPress={() => navigate("NotificationScreen" as never)}
+          rightOnPress={() => navigate(Routes.notification as never)}
           right={Ring}
           color={colors.gray}
           colorPrimary={colors.primary}
@@ -113,8 +145,8 @@ export const HomeScreen: React.FC = () => {
           showsVerticalScrollIndicator={false}
         />
       </ScrollView>
+      <Text style={styles.textRecommend}>Recommend for you</Text>
       <View style={styles.cardHorizontal}>
-        <Text style={styles.textRecommend}>Recommend for you</Text>
         <FlashList
           scrollEnabled={false}
           renderItem={renderCardsHorizontal}
@@ -132,7 +164,7 @@ export const HomeScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   root: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     backgroundColor: colors.dark,
   },
 
