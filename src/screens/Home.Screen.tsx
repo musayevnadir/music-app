@@ -2,16 +2,17 @@
 
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View, Text } from "react-native";
+import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
 import { Avatar } from "components/Avatar";
 import { Header } from "components/Header";
 import Ring from "../../assets/vectors/ring.svg";
-import { colors } from "theme/colors";
 import { MainSection } from "components/MainSection";
 import { useNavigation } from "@react-navigation/native";
 import { Card } from "components/Card";
 import { FlashList } from "@shopify/flash-list";
-import { commonStyles } from "theme/commonStyles";
 import { Routes } from "routers/ROUTES";
+import { fetchSongs } from "api/songs.api";
 
 // ! Interface
 
@@ -20,6 +21,7 @@ interface MusicParams {
   title?: string;
   picture_big?: string;
   name?: string;
+  preview?: string;
 }
 
 export const HomeScreen: React.FC = () => {
@@ -30,16 +32,10 @@ export const HomeScreen: React.FC = () => {
   // ! Fetch
 
   useEffect(() => {
-    const url = "https://api.deezer.com/radio/31061/tracks";
-
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setRadioData(data.data);
+        const data = await fetchSongs();
+        setRadioData(data);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
       }
@@ -66,36 +62,45 @@ export const HomeScreen: React.FC = () => {
     item: any;
     index: number;
   }) => {
+    const { title, artist, title_short, preview } = item;
+
     return (
       <Card
         onPress={() =>
           handleMusic({
-            id: item.artist.id,
-            title: item.title,
-            picture_big: item.artist.picture_big,
-            name: item.artist.name,
+            id: artist.id,
+            title: title,
+            picture_big: artist.picture_big,
+            name: artist.name,
+            preview: preview,
           })
         }
         horizontal
         size={"small"}
         key={index}
-        name={item.artist.name}
-        title={item.title}
-        picture_small={item.artist.picture_medium}
-        title_short={item.title_short}
+        name={artist.name}
+        title={title}
+        picture_small={artist.picture_medium}
+        title_short={title_short}
       />
     );
   };
 
   // ! Handle Music Function
 
-  const handleMusic = ({ id, title, picture_big, name }: MusicParams) => {
+  const handleMusic = ({
+    id,
+    title,
+    picture_big,
+    name,
+    preview,
+  }: MusicParams) => {
     (navigate as any)(Routes.music, {
-      musicId: id,
-      musicName: name,
-      musicTitle: title,
-      musicPictureBig: picture_big,
+      id,
+      title,
+      picture_big,
       name,
+      preview,
     });
   };
 

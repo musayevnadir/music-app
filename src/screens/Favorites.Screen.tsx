@@ -10,27 +10,18 @@ import { FlashList } from "@shopify/flash-list";
 import { Card } from "components/Card";
 import { cardWidth } from "utils/size-screen";
 import { useNavigation } from "@react-navigation/native";
-
-// ! Component
+import { fetchSongs } from "api/songs.api";
 
 export const FavoritesScreen: React.FC = ({}) => {
   const { goBack } = useNavigation();
 
   const [radioData, setRadioData] = useState([]);
 
-  // ! Fetch
-
   useEffect(() => {
-    const url = "https://api.deezer.com/radio/31061/tracks";
-
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setRadioData(data.data);
+        const data = await fetchSongs();
+        setRadioData(data);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
       }

@@ -1,15 +1,10 @@
 /** @format */
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
-import { Header } from "components/Header";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import { colors } from "theme/colors";
+import { commonStyles } from "theme/commonStyles";
+import { Header } from "components/Header";
+import { ProgressBar } from "components/ProgressBar";
 import ArrowLeftVector from "../../assets/vectors/arrow-left.svg";
 import FavoriteVector from "../../assets/vectors/heart.svg";
 import ShuffleVector from "../../assets/vectors/shuffle.svg";
@@ -17,18 +12,18 @@ import SkipBackVector from "../../assets/vectors/skip-back.svg";
 import SkipForwardVector from "../../assets/vectors/skip-forward.svg";
 import PauseVector from "../../assets/vectors/pause.svg";
 import RepeatVector from "../../assets/vectors/repeat.svg";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { ProgressBar } from "components/ProgressBar";
-import { commonStyles } from "theme/commonStyles";
+import { Audio } from "expo-av";
 import { Routes } from "routers/ROUTES";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 // ! Interface
 
 interface IMusicDate {
-  musicId?: number;
-  musicTitle?: string;
-  musicPictureBig?: string;
   name?: string;
+  picture_big?: string;
+  id?: number;
+  title?: string;
+  preview?: string;
 }
 
 // ! Default Image fot MusicScreen
@@ -41,44 +36,28 @@ const defaultImage =
 export const MusicScreen: React.FC = () => {
   const { navigate, goBack } = useNavigation();
 
-  const [radioData, setRadioData] = useState([]);
+  const [sound, setSound] = useState<any>();
 
-  const route = useRoute();
+  const { name, title, picture_big, preview }: IMusicDate =
+    useRoute().params || {};
 
-  const {
-    musicId: ID,
-    musicTitle: MUSIC_TiTLE,
-    musicPictureBig: PICTURE_BiG,
-    name: name,
-  }: IMusicDate = route.params || {};
-
-  // ! Fetch
+  async function playSound() {
+    if (preview) {
+      const { sound } = await Audio.Sound.createAsync({ uri: preview });
+      setSound(sound);
+      await sound.playAsync();
+    } else {
+      console.error("Preview is undefined");
+    }
+  }
 
   useEffect(() => {
-    const url = `https://api.deezer.com/artist/${ID}/top?limit=50`;
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    return sound
+      ? () => {
+          sound.unloadAsync();
         }
-        const data = await response.json();
-
-        setRadioData(data.data);
-      } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  // radioData.map((element) => {
-  //   if (MUSIC_TiTLE === element.title) {
-  //     console.log(element.title);
-  //     console.log(element.preview);
-  //   }
-  // });
+      : undefined;
+  }, [sound]);
 
   return (
     <View style={styles.root}>
@@ -89,18 +68,17 @@ export const MusicScreen: React.FC = () => {
         title={"Ophelia by Steven"}
         right={FavoriteVector}
       />
-
       <View style={styles.main}>
         <Image
           resizeMode={"cover"}
           style={styles.image}
           source={{
-            uri: PICTURE_BiG || defaultImage,
+            uri: picture_big || defaultImage,
           }}
         />
         <View style={styles.texts}>
           <Text style={styles.singer}>{name}</Text>
-          <Text style={styles.title}>{MUSIC_TiTLE}</Text>
+          <Text style={styles.title}>{title}</Text>
         </View>
       </View>
       <View style={styles.controller}>
@@ -108,7 +86,7 @@ export const MusicScreen: React.FC = () => {
         <View style={commonStyles.alignCenterJustifyBetweenRow}>
           <ShuffleVector color={colors.white} />
           <SkipBackVector color={colors.white} />
-          <TouchableOpacity style={styles.pause}>
+          <TouchableOpacity onPress={playSound} style={styles.pause}>
             <PauseVector color={colors.white} />
           </TouchableOpacity>
           <SkipForwardVector color={colors.white} />
