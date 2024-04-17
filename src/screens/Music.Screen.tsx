@@ -1,6 +1,13 @@
 /** @format */
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { Header } from "components/Header";
 import { colors } from "theme/colors";
 import ArrowLeftVector from "../../assets/vectors/arrow-left.svg";
@@ -23,6 +30,13 @@ interface IMusicDate {
   musicPictureBig?: string;
   name?: string;
 }
+
+// ! Default Image fot MusicScreen
+
+const defaultImage =
+  "https://play-lh.googleusercontent.com/54v1qfGwv6CsspWLRjCUEfVwg4UX248awdm_ad7eoHFst6pDwPNgWlBb4lRsAbjZhA";
+
+// ! Component
 
 export const MusicScreen: React.FC = () => {
   const { navigate, goBack } = useNavigation();
@@ -50,6 +64,7 @@ export const MusicScreen: React.FC = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+
         setRadioData(data.data);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
@@ -74,11 +89,14 @@ export const MusicScreen: React.FC = () => {
         title={"Ophelia by Steven"}
         right={FavoriteVector}
       />
+
       <View style={styles.main}>
         <Image
           resizeMode={"cover"}
           style={styles.image}
-          source={{ uri: PICTURE_BiG }}
+          source={{
+            uri: PICTURE_BiG || defaultImage,
+          }}
         />
         <View style={styles.texts}>
           <Text style={styles.singer}>{name}</Text>

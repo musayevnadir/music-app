@@ -22,8 +22,6 @@ interface MusicParams {
   name?: string;
 }
 
-console.log(Ring);
-
 export const HomeScreen: React.FC = () => {
   const { navigate } = useNavigation();
 
