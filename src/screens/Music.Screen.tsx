@@ -15,6 +15,7 @@ import RepeatVector from "../../assets/vectors/repeat.svg";
 import { Audio } from "expo-av";
 import { Routes } from "routers/ROUTES";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { defaultImage } from "api/songs.api";
 
 // ! Interface
 
@@ -27,9 +28,6 @@ interface IMusicDate {
 }
 
 // ! Default Image fot MusicScreen
-
-const defaultImage =
-  "https://play-lh.googleusercontent.com/54v1qfGwv6CsspWLRjCUEfVwg4UX248awdm_ad7eoHFst6pDwPNgWlBb4lRsAbjZhA";
 
 // ! Component
 

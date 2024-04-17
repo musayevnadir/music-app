@@ -13,3 +13,6 @@ export const fetchSongs = async () => {
     throw error;
   }
 };
+
+export const defaultImage =
+  "https://play-lh.googleusercontent.com/54v1qfGwv6CsspWLRjCUEfVwg4UX248awdm_ad7eoHFst6pDwPNgWlBb4lRsAbjZhA";
