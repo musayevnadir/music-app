@@ -6,14 +6,16 @@ import { Header } from "components/Header";
 import ArrowLeftVector from "../../assets/vectors/arrow-left.svg";
 import { InfoCard } from "components/InfoCard";
 import { infoCardDate } from "mock/infoCard.dates";
-import { carDate } from "mock/card.dates";
 import { FlashList } from "@shopify/flash-list";
 import { Card } from "components/Card";
 import { cardWidth } from "utils/size-screen";
+import { useNavigation } from "@react-navigation/native";
 
 // ! Component
 
 export const FavoritesScreen: React.FC = ({}) => {
+  const { goBack } = useNavigation();
+
   const [radioData, setRadioData] = useState([]);
 
   // ! Fetch
@@ -42,14 +44,14 @@ export const FavoritesScreen: React.FC = ({}) => {
         style={styles.cardWidth}
         imageStyle={{ width: cardWidth }}
         size={"large"}
-        picture_small={item.artist.picture_small}
+        picture_small={item.artist.picture_medium}
       />
     );
   };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
-      <Header left={ArrowLeftVector} />
+      <Header leftOnPress={goBack} left={ArrowLeftVector} />
       <View>
         {infoCardDate.map(
           ({ email, memberSince, imageUrl, musicLoverSince, name }, index) => (
@@ -72,7 +74,7 @@ export const FavoritesScreen: React.FC = ({}) => {
           scrollEnabled={false}
           data={radioData}
           renderItem={({ item }) => (
-            <Card picture_small={(item as any).album.cover_small} />
+            <Card picture_small={(item as any).album.cover_medium} />
           )}
           estimatedItemSize={200}
           showsHorizontalScrollIndicator={false}
@@ -81,7 +83,6 @@ export const FavoritesScreen: React.FC = ({}) => {
           )}
         />
       </ScrollView>
-
       <Text style={[styles.textAlbum, styles.textMusic]}>Favourite Music</Text>
       <View style={styles.flashSize}>
         <FlashList
@@ -107,7 +108,7 @@ export const FavoritesScreen: React.FC = ({}) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     backgroundColor: colors.dark,
   },
 
@@ -148,6 +149,7 @@ const styles = StyleSheet.create({
   flashSize: {
     flex: 1,
     minHeight: 300,
+    minWidth: "100%",
   },
 
   scrollSize: {

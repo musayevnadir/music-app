@@ -37,7 +37,6 @@ export const Card: React.FC<ICard> = ({
   title,
   name,
   title_short,
-  url,
   size = "medium",
   singer,
   description,
@@ -53,7 +52,8 @@ export const Card: React.FC<ICard> = ({
   return (
     <Pressable
       onPress={onPress}
-      style={[
+      style={({ pressed }) => [
+        { opacity: pressed ? 0.5 : 1 },
         commonStyles.flexAlignCenter,
         styles.root,
         horizontal && styles.horizontal,

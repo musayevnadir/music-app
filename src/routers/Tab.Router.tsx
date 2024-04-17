@@ -1,6 +1,5 @@
 /** @format */
 import React from "react";
-import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { tabOptions } from "configs/navigation-configs";
 import { HomeScreen } from "screens/Home.Screen";
@@ -12,6 +11,7 @@ import HomeVector from "../../assets/vectors/home.svg";
 import MusicVector from "../../assets/vectors/music.svg";
 import FavoritesVector from "../../assets/vectors/favorites.svg";
 import LocationVector from "../../assets/vectors/location.svg";
+import { Routes } from "./ROUTES";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +19,7 @@ export const TabRouter: React.FC = () => {
   return (
     <Tab.Navigator screenOptions={tabOptions}>
       <Tab.Screen
-        name="Home"
+        name={Routes.home}
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -30,7 +30,7 @@ export const TabRouter: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="Music"
+        name={Routes.music}
         component={MusicScreen}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -41,7 +41,7 @@ export const TabRouter: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="FavoritesScreen"
+        name={Routes.favorite}
         component={FavoritesScreen}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -52,7 +52,7 @@ export const TabRouter: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="LocationScreen"
+        name={Routes.location}
         component={LocationScreen}
         options={{
           tabBarIcon: ({ focused }) =>
